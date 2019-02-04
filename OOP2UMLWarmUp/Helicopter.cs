@@ -10,7 +10,7 @@ namespace OOP2UMLWarmUp
     {
         Helicopter()
         {
-
+            maxAltitude = 8000;
         }
     }
 }
