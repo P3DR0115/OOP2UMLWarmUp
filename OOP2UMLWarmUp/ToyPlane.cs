@@ -8,41 +8,51 @@ namespace OOP2UMLWarmUp
 {
     public class ToyPlane : Airplane
     {
-        bool isWoundUp;
+        public bool isWoundUp;
 
         public ToyPlane()
         {
             maxAltitude = 50;
+            UnWind();
         }
 
-        string About()
+        public string About()
         {
-            return "";
+            return "This " + this.ToString() + " has a max altitude of " + maxAltitude + " ft.\n" +
+                "It's current altitude is " + currentAltitude + " ft.\n" +
+                this.ToString() + "Engine is started = " + engine.isStarted;
         }
 
-        string getWindUpString()
+        public string getWindUpString()
         {
-            return "";
+            if (isWoundUp)
+                return this.ToString() + " is wound up";
+            else
+                return this.ToString() + " is not wound up";
         }
 
-        void StartEngine()
+        public void StartEngine()
         {
-            base.engine.Start();
+            if (this.isWoundUp)
+                base.engine.Start();
+            else
+                Console.WriteLine("Cannot start engine, toy plane is not wound up!");
         }
 
-        string TakeOff()
+        public string TakeOff()
         {
-            return "";
-        }
-
-        void UnWind()
-        {
+            return base.TakeOff();
 
         }
 
-        void WindUp()
+        public void UnWind()
         {
+            this.isWoundUp = false;
+        }
 
+        public void WindUp()
+        {
+            this.isWoundUp = true;
         }
     }
 }
