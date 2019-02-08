@@ -8,26 +8,27 @@ namespace OOP2UMLWarmUp
 {
     public class Engine
     {
-        public bool isStarted;
+        public bool isStarted; // { get => isStarted; set => isStarted = value; }
+
 
         public Engine()
         {
-            isStarted = false;
-        }
-        string About()
-        {
-
-            return "";
+            this.Stop(); // isStarted = false;
         }
 
-        void Start()
+        public string About()
         {
-
+            return "Engine Started: " + isStarted;
         }
 
-        void Stop()
+        public void Start()
         {
+            this.isStarted = true;
+        }
 
+        public void Stop()
+        {
+            this.isStarted = false;
         }
     }
 }

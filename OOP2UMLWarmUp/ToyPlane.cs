@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP2UMLWarmUp
 {
-    class ToyPlane : Airplane
+    public class ToyPlane : Airplane
     {
         bool isWoundUp;
 
@@ -27,7 +27,7 @@ namespace OOP2UMLWarmUp
 
         void StartEngine()
         {
-
+            base.engine.Start();
         }
 
         string TakeOff()

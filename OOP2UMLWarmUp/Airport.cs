@@ -11,7 +11,7 @@ namespace OOP2UMLWarmUp
         int MaxVehicles;
         List<AerialVehicle> Vehicles;
 
-        string AirportCode { get => AirportCode; set => AirportCode = value; }
+        string AirportCode; // { get => AirportCode; set => AirportCode = value; }
 
         Airport(string Code)
         {

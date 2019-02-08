@@ -9,5 +9,9 @@ namespace OOP2UMLWarmUp
     class Drone : AerialVehicle
     {
 
+        Drone()
+        {
+            maxAltitude = 500;
+        }
     }
 }

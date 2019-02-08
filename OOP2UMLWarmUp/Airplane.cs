@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace OOP2UMLWarmUp
 {
-    class Airplane : AerialVehicle
+    public class Airplane : AerialVehicle
     {
         public Airplane()
-        {
+        {            
             maxAltitude = 41000;
         }
     }
