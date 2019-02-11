@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP2UMLWarmUp
 {
-    class Airport
+    public class Airport
     {
         int MaxVehicles;
         List<AerialVehicle> Vehicles;

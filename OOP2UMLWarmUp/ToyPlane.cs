@@ -31,7 +31,7 @@ namespace OOP2UMLWarmUp
                 return this.ToString() + " is not wound up";
         }
 
-        public void StartEngine()
+        public override void StartEngine()
         {
             if (this.isWoundUp)
                 base.engine.Start();
@@ -39,7 +39,7 @@ namespace OOP2UMLWarmUp
                 Console.WriteLine("Cannot start engine, toy plane is not wound up!");
         }
 
-        public string TakeOff()
+        public override string TakeOff()
         {
             return base.TakeOff();
 

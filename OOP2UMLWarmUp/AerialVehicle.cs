@@ -35,13 +35,20 @@ namespace OOP2UMLWarmUp
 
         public void FlyDown(int HowManyFeet)
         {
-            if (this.engine.isStarted && (this.currentAltitude - HowManyFeet >= 0))
+            if (this.isFlying)
             {
-                this.currentAltitude -= HowManyFeet;
+                if (this.currentAltitude - HowManyFeet >= 0)
+                {
+                    this.currentAltitude -= HowManyFeet;
+                }
+                else
+                {
+                    Console.WriteLine("Warning: Cannot fly down lower than current altitude. Current Altitude is " + currentAltitude + " ft.");
+                }
             }
             else
             {
-                Console.WriteLine("Warning: Cannot fly down lower than current altitude. Current Altitude is " + currentAltitude + " ft.");
+                Console.WriteLine("Warning: Currently not flying.");
             }
         }
 
@@ -52,15 +59,23 @@ namespace OOP2UMLWarmUp
 
         public void FlyUp(int HowManyFeet)
         {
-            if(this.engine.isStarted && (this.currentAltitude + HowManyFeet <= this.maxAltitude))
+            if(this.isFlying )
             {
-                this.currentAltitude += HowManyFeet;
+                if (this.currentAltitude + HowManyFeet <= this.maxAltitude)
+                {
+                    this.currentAltitude += HowManyFeet;
+                }
+                else
+                {
+                    this.currentAltitude = maxAltitude;
+                    Console.WriteLine("Max Altitude Reached, current altitude is " + currentAltitude + " ft.");
+                }
             }
             else
             {
-                this.currentAltitude = maxAltitude;
-                Console.WriteLine("Max Altitude Reached, current altitude is " + currentAltitude + " ft.");
+                Console.WriteLine("Warning: Currently not flying.");
             }
+
         }
 
         public string getEngineStartedString()
@@ -75,7 +90,7 @@ namespace OOP2UMLWarmUp
             }
         }
 
-        public void StartEngine()
+        public virtual void StartEngine()
         {
             engine.isStarted = true;
         }
@@ -85,7 +100,7 @@ namespace OOP2UMLWarmUp
             engine.isStarted = false;
         }
 
-        public string TakeOff()
+        public virtual string TakeOff()
         {
             if(engine.isStarted)
             {

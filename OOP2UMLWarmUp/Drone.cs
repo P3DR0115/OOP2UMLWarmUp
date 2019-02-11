@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP2UMLWarmUp
 {
-    class Drone : AerialVehicle
+    public class Drone : AerialVehicle
     {
 
         Drone()

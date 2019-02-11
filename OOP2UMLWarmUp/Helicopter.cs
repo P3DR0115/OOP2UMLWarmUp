@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP2UMLWarmUp
 {
-    class Helicopter : AerialVehicle
+    public class Helicopter : AerialVehicle
     {
         Helicopter()
         {
