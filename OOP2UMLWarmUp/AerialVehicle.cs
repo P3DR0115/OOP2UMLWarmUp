@@ -40,6 +40,11 @@ namespace OOP2UMLWarmUp
                 if (this.currentAltitude - HowManyFeet >= 0)
                 {
                     this.currentAltitude -= HowManyFeet;
+
+                    if (this.currentAltitude == 0)
+                    {
+                        this.isFlying = false;
+                    }
                 }
                 else
                 {
@@ -104,6 +109,7 @@ namespace OOP2UMLWarmUp
         {
             if(engine.isStarted)
             {
+                this.isFlying = true;
                 return this.ToString() + " is flying.";
             }
             else

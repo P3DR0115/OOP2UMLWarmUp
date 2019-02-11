@@ -33,11 +33,11 @@ namespace AerialVehiclesTester
 
 
             // Assert
-            Assert.AreEqual(originalEngineStatus, false);
-            Assert.AreEqual(postEngineStartStatus, true);
-            Assert.AreEqual(postEngineStopStatus, false);
-            Assert.AreEqual(engineAboutPreStart, "Engine Started: False");
-            Assert.AreEqual(engineAboutPostStart, "Engine Started: True");
+            Assert.AreEqual(false, originalEngineStatus);
+            Assert.AreEqual(true, postEngineStartStatus);
+            Assert.AreEqual(false, postEngineStopStatus);
+            Assert.AreEqual("Engine Started: False", engineAboutPreStart);
+            Assert.AreEqual("Engine Started: True", engineAboutPostStart);
         }
 
         [TestMethod]
@@ -93,18 +93,48 @@ namespace AerialVehiclesTester
 
             boeing.FlyDown(5000);
             int planeHeightPostStartDownX = boeing.currentAltitude; // maxAltitude - 6000 ft
-
-
+            
             boeing.StopEngine();
             bool EngineStatusPostStop = boeing.engine.isStarted;
 
             string planeMidflightEngineOff = boeing.About();
 
-            // Assert
-            Assert.AreEqual(initialAbout, "This " + boeing.ToString() + " has a max altitude of " + boeing.maxAltitude + " ft.\n" +
-                "It's current altitude is " + boeing.currentAltitude + " ft.\n" +
-                boeing.ToString() + "Engine is started = " + boeing.engine.isStarted);
+            boeing.FlyDown(boeing.currentAltitude);
+            bool planeLand = boeing.isFlying;
 
+            // Assert
+            Assert.AreEqual("This " + boeing.ToString() + " has a max altitude of " + boeing.maxAltitude + " ft.\n" +
+                "It's current altitude is " + "0 ft.\n" +
+                boeing.ToString() + "Engine is started = False", initialAbout);
+
+            Assert.AreEqual(0, planeGroundHeight);
+            Assert.AreEqual(0, planeHeightPreStartUp);
+            Assert.AreEqual(0, planeHeightPreStartDown);
+            Assert.AreEqual(EngineStatusPreStart, false);
+            Assert.AreEqual(boeing.ToString() + " cannot fly, its' engine is not started.", TakeoffPreStart);
+            Assert.AreEqual(true, EngineStatusPostStart);
+
+            Assert.AreEqual(planeHeightPreTakeoffUp, 0);
+            Assert.AreEqual(planeHeightPreTakeOffDown, 0);
+
+            Assert.AreEqual(boeing.ToString() + " is flying.", confirmTakeOff);
+            Assert.AreEqual(1000, planeHeightPostStartUp);
+            Assert.AreEqual(36000, planeHeightPostStartUpX);
+            Assert.AreEqual(boeing.maxAltitude, planeHeightPostStartUpMax);
+            Assert.AreEqual(boeing.maxAltitude - 1000, planeHeightPostStartDown);
+
+            Assert.AreEqual("This " + boeing.ToString() + " has a max altitude of " + boeing.maxAltitude + " ft.\n" +
+                "It's current altitude is " + (boeing.maxAltitude - 1000) + " ft.\n" +
+                boeing.ToString() + "Engine is started = True", planeFlightAbout);
+
+            Assert.AreEqual(boeing.maxAltitude - 1000, planeHeightPostStartDownMax);
+            Assert.AreEqual(boeing.maxAltitude - 6000, planeHeightPostStartDownX);
+            Assert.AreEqual(false, EngineStatusPostStop);
+            Assert.AreEqual("This " + boeing.ToString() + " has a max altitude of " + boeing.maxAltitude + " ft.\n" +
+                "It's current altitude is " + (boeing.maxAltitude - 6000) + " ft.\n" +
+                boeing.ToString() + "Engine is started = False", planeMidflightEngineOff);
+
+            Assert.AreEqual(false, planeLand);
 
         }
     }
