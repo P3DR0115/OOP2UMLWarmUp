@@ -8,7 +8,7 @@ namespace OOP2UMLWarmUp
 {
     public class Helicopter : AerialVehicle
     {
-        Helicopter()
+        public Helicopter()
         {
             maxAltitude = 8000;
         }

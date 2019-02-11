@@ -9,9 +9,20 @@ namespace OOP2UMLWarmUp
     public class Drone : AerialVehicle
     {
 
-        Drone()
+        public Drone()
         {
             maxAltitude = 500;
         }
+
+        public override void FlyDown()
+        {
+            base.FlyDown(100);
+        }
+
+        public override void FlyUp()
+        {
+            base.FlyUp(100);
+        }
+        
     }
 }

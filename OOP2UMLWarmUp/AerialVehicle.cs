@@ -23,9 +23,9 @@ namespace OOP2UMLWarmUp
 
         public string About()
         {
-            return "This " + this.ToString() + " has a max altitude of " + maxAltitude + " ft.\n" + 
+            return "This " + ToString() + " has a max altitude of " + maxAltitude + " ft.\n" + 
                 "It's current altitude is " + currentAltitude + " ft.\n" + 
-                this.ToString() +"Engine is started = " + engine.isStarted;
+                ToString() +"Engine is started = " + engine.isStarted;
         }
 
         public virtual void FlyDown()
@@ -35,15 +35,15 @@ namespace OOP2UMLWarmUp
 
         public void FlyDown(int HowManyFeet)
         {
-            if (this.isFlying)
+            if (isFlying)
             {
-                if (this.currentAltitude - HowManyFeet >= 0)
+                if (currentAltitude - HowManyFeet >= 0)
                 {
-                    this.currentAltitude -= HowManyFeet;
+                    currentAltitude -= HowManyFeet;
 
-                    if (this.currentAltitude == 0)
+                    if (currentAltitude == 0)
                     {
-                        this.isFlying = false;
+                        isFlying = false;
                     }
                 }
                 else
@@ -59,20 +59,20 @@ namespace OOP2UMLWarmUp
 
         public virtual void FlyUp()
         {
-            this.FlyUp(1000);
+            FlyUp(1000);
         }
 
         public void FlyUp(int HowManyFeet)
         {
             if(this.isFlying )
             {
-                if (this.currentAltitude + HowManyFeet <= this.maxAltitude)
+                if (currentAltitude + HowManyFeet <= maxAltitude)
                 {
-                    this.currentAltitude += HowManyFeet;
+                    currentAltitude += HowManyFeet;
                 }
                 else
                 {
-                    this.currentAltitude = maxAltitude;
+                    currentAltitude = maxAltitude;
                     Console.WriteLine("Max Altitude Reached, current altitude is " + currentAltitude + " ft.");
                 }
             }
@@ -109,12 +109,12 @@ namespace OOP2UMLWarmUp
         {
             if(engine.isStarted)
             {
-                this.isFlying = true;
-                return this.ToString() + " is flying.";
+                isFlying = true;
+                return ToString() + " is flying.";
             }
             else
             {
-                return this.ToString() + " cannot fly, its' engine is not started.";
+                return ToString() + " cannot fly, its' engine is not started.";
             }
         }
 
