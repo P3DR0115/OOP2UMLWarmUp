@@ -110,12 +110,12 @@ namespace AerialVehiclesTester
             Assert.AreEqual(0, planeGroundHeight);
             Assert.AreEqual(0, planeHeightPreStartUp);
             Assert.AreEqual(0, planeHeightPreStartDown);
-            Assert.AreEqual(EngineStatusPreStart, false);
+            Assert.AreEqual(false, EngineStatusPreStart);
             Assert.AreEqual(boeing.ToString() + " cannot fly, its' engine is not started.", TakeoffPreStart);
             Assert.AreEqual(true, EngineStatusPostStart);
 
-            Assert.AreEqual(planeHeightPreTakeoffUp, 0);
-            Assert.AreEqual(planeHeightPreTakeOffDown, 0);
+            Assert.AreEqual(0, planeHeightPreTakeoffUp);
+            Assert.AreEqual(0, planeHeightPreTakeOffDown);
 
             Assert.AreEqual(boeing.ToString() + " is flying.", confirmTakeOff);
             Assert.AreEqual(1000, planeHeightPostStartUp);
@@ -133,6 +133,123 @@ namespace AerialVehiclesTester
             Assert.AreEqual("This " + boeing.ToString() + " has a max altitude of " + boeing.maxAltitude + " ft.\n" +
                 "It's current altitude is " + (boeing.maxAltitude - 6000) + " ft.\n" +
                 boeing.ToString() + "Engine is started = False", planeMidflightEngineOff);
+
+            Assert.AreEqual(false, planeLand);
+
+        }
+
+        [TestMethod]
+        public void TestToyPlane()
+        {
+            // Arrange
+            toy = new ToyPlane();
+
+            // Act
+
+
+            // Assert
+
+
+            string initialAbout = toy.About();
+
+            int planeGroundHeight = toy.currentAltitude; // 0 ft
+            bool planePreWindUp = toy.isWoundUp;
+
+            // Test before winding up or starting engine
+            toy.FlyUp();
+            int planeHeightPreStartUp = toy.currentAltitude; // 0 ft
+
+            toy.FlyDown();
+            int planeHeightPreStartDown = toy.currentAltitude; // 0 ft
+
+            bool EngineStatusPreStart = toy.engine.isStarted;
+            string TakeoffPreStart = toy.TakeOff();
+
+            // Test after winding up but before starting engine
+            toy.WindUp();
+            bool planePostWindUp = toy.isWoundUp;
+
+            toy.FlyUp();
+            int planeHeightPreWindUp = toy.currentAltitude;
+
+            toy.FlyDown();
+            int planeHeightPreWindDown = toy.currentAltitude;
+
+            // Test after starting engine but before taking off
+            toy.StartEngine();
+            bool EngineStatusPostStart = toy.engine.isStarted;
+
+            toy.FlyUp();
+            int planeHeightPreTakeoffUp = toy.currentAltitude; // 0 ft
+
+            toy.FlyDown();
+            int planeHeightPreTakeOffDown = toy.currentAltitude; // 0 ft
+
+            // Test after starting engine and after taking off
+            string confirmTakeOff = toy.TakeOff();
+            toy.FlyUp();
+            int planeHeightPostStartUp = toy.currentAltitude; // 10 ft
+
+            toy.FlyUp(20);
+            int planeHeightPostStartUpX = toy.currentAltitude; // 30 ft
+
+            toy.FlyUp(50000);
+            int planeHeightPostStartUpMax = toy.currentAltitude; // maxAltitude
+
+            toy.FlyDown();
+            int planeHeightPostStartDown = toy.currentAltitude; // maxAltitude - 10 ft
+
+            string planeFlightAbout = toy.About();
+
+            toy.FlyDown(50000);
+            int planeHeightPostStartDownMax = toy.currentAltitude; // same as above
+
+            toy.FlyDown(15);
+            int planeHeightPostStartDownX = toy.currentAltitude; // maxAltitude - 25 ft
+
+            toy.StopEngine();
+            bool EngineStatusPostStop = toy.engine.isStarted;
+
+            string planeMidflightEngineOff = toy.About();
+
+            toy.FlyDown(toy.currentAltitude);
+            bool planeLand = toy.isFlying;
+
+            // Assert
+            Assert.AreEqual("This " + toy.ToString() + " has a max altitude of " + toy.maxAltitude + " ft.\n" +
+                "It's current altitude is " + "0 ft.\n" +
+                toy.ToString() + "Engine is started = False", initialAbout);
+
+            Assert.AreEqual(0, planeGroundHeight);
+            Assert.AreEqual(0, planeHeightPreStartUp);
+            Assert.AreEqual(0, planeHeightPreStartDown);
+            Assert.AreEqual(EngineStatusPreStart, false);
+            Assert.AreEqual(toy.ToString() + " cannot fly, its' engine is not started.", TakeoffPreStart);
+            Assert.AreEqual(true, EngineStatusPostStart);
+
+            Assert.AreEqual(true, planePostWindUp);
+            Assert.AreEqual(0, planeHeightPreWindUp);
+            Assert.AreEqual(0, planeHeightPreWindDown);
+
+            Assert.AreEqual(0, planeHeightPreTakeoffUp);
+            Assert.AreEqual(0, planeHeightPreTakeOffDown);
+
+            Assert.AreEqual(toy.ToString() + " is flying.", confirmTakeOff);
+            Assert.AreEqual(10, planeHeightPostStartUp);
+            Assert.AreEqual(30, planeHeightPostStartUpX);
+            Assert.AreEqual(toy.maxAltitude, planeHeightPostStartUpMax);
+            Assert.AreEqual(toy.maxAltitude - 10, planeHeightPostStartDown);
+
+            Assert.AreEqual("This " + toy.ToString() + " has a max altitude of " + toy.maxAltitude + " ft.\n" +
+                "It's current altitude is " + (toy.maxAltitude - 10) + " ft.\n" +
+                toy.ToString() + "Engine is started = True", planeFlightAbout);
+
+            Assert.AreEqual(toy.maxAltitude - 10, planeHeightPostStartDownMax);
+            Assert.AreEqual(toy.maxAltitude - 25, planeHeightPostStartDownX);
+            Assert.AreEqual(false, EngineStatusPostStop);
+            Assert.AreEqual("This " + toy.ToString() + " has a max altitude of " + toy.maxAltitude + " ft.\n" +
+                "It's current altitude is " + (toy.maxAltitude - 25) + " ft.\n" +
+                toy.ToString() + "Engine is started = False", planeMidflightEngineOff);
 
             Assert.AreEqual(false, planeLand);
 

@@ -28,7 +28,7 @@ namespace OOP2UMLWarmUp
                 this.ToString() +"Engine is started = " + engine.isStarted;
         }
 
-        public void FlyDown()
+        public virtual void FlyDown()
         {
             this.FlyDown(1000);
         }
@@ -57,7 +57,7 @@ namespace OOP2UMLWarmUp
             }
         }
 
-        public void FlyUp()
+        public virtual void FlyUp()
         {
             this.FlyUp(1000);
         }

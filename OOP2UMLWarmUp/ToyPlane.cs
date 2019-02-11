@@ -45,6 +45,16 @@ namespace OOP2UMLWarmUp
 
         }
 
+        public override void FlyDown()
+        {
+            this.FlyDown(10);
+        }
+
+        public override void FlyUp()
+        {
+            this.FlyUp(10);
+        }
+
         public void UnWind()
         {
             this.isWoundUp = false;
