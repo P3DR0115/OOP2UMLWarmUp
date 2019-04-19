@@ -58,6 +58,7 @@ namespace OOP2UMLWarmUp
         public void UnWind()
         {
             this.isWoundUp = false;
+            base.engine.Stop();
         }
 
         public void WindUp()

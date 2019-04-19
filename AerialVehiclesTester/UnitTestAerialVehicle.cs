@@ -14,6 +14,7 @@ namespace AerialVehiclesTester
         Helicopter apache;
         Drone uav;
         Engine motor;
+        Airport terminal;
 
         [TestMethod]
         public void TestEngine()
@@ -393,6 +394,63 @@ namespace AerialVehiclesTester
 
             Assert.AreEqual(false, planeLand);
 
+        }
+
+        [TestMethod]
+        public void TestAirport()
+        {
+            // Arrange
+            terminal = new Airport("115");
+            boeing = new Airplane();
+            apache = new Helicopter();
+            uav = new Drone();
+            toy = new ToyPlane();
+
+            List<AerialVehicle> testVehicles = new List<AerialVehicle>()
+            {
+                boeing,
+                apache,
+                uav,
+                toy
+            };
+
+            // Act
+            boeing.StartEngine();
+            boeing.TakeOff();
+            boeing.FlyUp();
+            foreach(AerialVehicle a in testVehicles)
+            {
+                a.StartEngine();
+                a.TakeOff();
+                a.FlyUp();
+            }
+            
+
+            string landPlane = terminal.Land(boeing);
+            string landVehicles = terminal.Land(testVehicles);
+            string takeoffPlane = terminal.TakeOff(boeing);
+            string takeoffAll = terminal.AllTakeOff();
+
+
+
+
+
+
+
+            // Assert
+            Assert.AreEqual(terminal.AirportCode, "115");
+            Assert.AreEqual(terminal.MaxVehicles, 5);
+            Assert.AreEqual(takeoffPlane, boeing.ToString() + " has taken off. ");
+            Assert.AreEqual(takeoffAll, testVehicles[0].ToString() + " has taken off. " + testVehicles[1].ToString() + " has taken off. " +
+                testVehicles[2].ToString() + " has taken off. " + testVehicles[3].ToString() + " has taken off. ");
+            Assert.AreEqual(landPlane, boeing.ToString() + " has landed. ");
+            Assert.AreEqual(landVehicles, testVehicles[0].ToString() + " has landed. " + testVehicles[1].ToString() + " has landed. " +
+                testVehicles[2].ToString() + " has landed. " + testVehicles[3].ToString() + " has landed. ");
+
+
+            terminal = new Airport("ORD", 48);
+            Assert.AreEqual("ORD", terminal.AirportCode);
+            Assert.AreEqual(48, terminal.MaxVehicles);
         }
     }
 }

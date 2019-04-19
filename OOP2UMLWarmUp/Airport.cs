@@ -8,39 +8,85 @@ namespace OOP2UMLWarmUp
 {
     public class Airport
     {
-        int MaxVehicles;
-        List<AerialVehicle> Vehicles;
+        public int MaxVehicles;
+        public List<AerialVehicle> Vehicles;
 
-        string AirportCode; // { get => AirportCode; set => AirportCode = value; }
+        public string AirportCode { get; set; }
 
-        Airport(string Code)
+        public Airport(string Code) : this(Code, 5) { }
+
+        public Airport(string Code, int MaxVehiclesUserDefined)
         {
-
+            AirportCode = Code;
+            MaxVehicles = MaxVehiclesUserDefined;
+            Vehicles = new List<AerialVehicle>();
         }
 
-        Airport(string Code, int MaxVehicles)
+        public string AllTakeOff()
         {
+            string takeoffMessage = "";
+            for(int i = 0; i < Vehicles.Count; i++)
+            {
+                Vehicles[i].StartEngine();
+                Vehicles[i].TakeOff();
+                takeoffMessage += Vehicles[i].ToString() + " has taken off. ";
+                
+            }
 
+            Vehicles.Clear();
+
+            if (takeoffMessage != "")
+            {
+                return takeoffMessage;
+            }
+            else
+            {
+                return "All Vehicles have already taken off";
+            }
         }
 
-        string AllTakeOff()
+        public string Land(AerialVehicle av)
         {
-            return "";
+            string message = "";
+
+            if (av.isFlying)
+            {
+                av.FlyDown(av.currentAltitude);
+                av.StopEngine();
+                Vehicles.Add(av);
+                message += av.ToString() + " has landed. ";
+            }
+
+            return message;
         }
 
-        string Land(AerialVehicle a)
+        public string Land(List<AerialVehicle> landing)
         {
-            return "";
+            string message = "";
+
+            for(int i = 0; i < landing.Count; i++)
+            {
+                landing[i].FlyDown(landing[i].currentAltitude);
+                landing[i].StopEngine();
+                Vehicles.Add(landing[i]);
+                message += landing[i].ToString() + " has landed. ";
+                
+            }
+
+            return message;
         }
 
-        string Land(List<AerialVehicle> landing)
+        public string TakeOff(AerialVehicle a)
         {
-            return "";
-        }
-
-        string TakeOff(AerialVehicle a)
-        {
-            return "";
+            string takeoffMessage = "";
+            
+            a.StartEngine();
+            a.TakeOff();
+            Vehicles.Remove(a);
+            takeoffMessage += a.ToString() + " has taken off. ";
+                
+            
+            return takeoffMessage;
         }
 
     }
